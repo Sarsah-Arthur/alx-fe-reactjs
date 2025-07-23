@@ -1,20 +1,19 @@
-import { useRecipeStore } from '../store/recipeStore';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useRecipeStore } from '../store/recipeStore';
 
 const RecipeList = () => {
-  const filteredRecipes = useRecipeStore((state) => state.filteredRecipes);
-  const searchTerm = useRecipeStore((state) => state.searchTerm);
-  const filterRecipes = useRecipeStore((state) => state.filterRecipes);
+  const recipes = useRecipeStore((state) => state.recipes);
+  const favorites = useRecipeStore((state) => state.favorites);
+  const addFavorite = useRecipeStore((state) => state.addFavorite);
+  const removeFavorite = useRecipeStore((state) => state.removeFavorite);
 
-  useEffect(() => {
-    filterRecipes();
-  }, [searchTerm, filterRecipes]);
+  const isFavorite = (id) => favorites.includes(id);
 
   return (
     <div>
       <h2>Recipes</h2>
-      {filteredRecipes.map((recipe) => (
+      {recipes.map((recipe) => (
         <div
           key={recipe.id}
           style={{
@@ -23,10 +22,15 @@ const RecipeList = () => {
             padding: '10px',
           }}
         >
-          <h3>
-            <Link to={`/recipe/${recipe.id}`}>{recipe.title}</Link>
-          </h3>
+          <Link to={`/recipe/${recipe.id}`}>
+            <h3>{recipe.title}</h3>
+          </Link>
           <p>{recipe.description}</p>
+          {isFavorite(recipe.id) ? (
+            <button onClick={() => removeFavorite(recipe.id)}>Unfavorite</button>
+          ) : (
+            <button onClick={() => addFavorite(recipe.id)}>Favorite</button>
+          )}
         </div>
       ))}
     </div>

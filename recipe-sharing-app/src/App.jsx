@@ -3,21 +3,25 @@ import RecipeList from './components/RecipeList';
 import AddRecipeForm from './components/AddRecipeForm';
 import RecipeDetails from './components/RecipeDetails';
 import EditRecipeForm from './components/EditRecipeForm';
-import SearchBar from './components/SearchBar'; 
+import SearchBar from './components/SearchBar';
+import FavoritesList from './components/FavoritesList';
+import RecommendationsList from './components/RecommendationsList';
 
 function App() {
   return (
     <Router>
       <div className="App" style={{ padding: '20px', maxWidth: '800px', margin: 'auto' }}>
         <h1>Recipe Sharing App</h1>
-        {/* Show SearchBar only on home page */}
+
         <Routes>
           <Route
             path="/"
             element={
               <>
-                <SearchBar /> 
+                <SearchBar />
                 <RecipeList />
+                <FavoritesList />
+                <RecommendationsList />
               </>
             }
           />

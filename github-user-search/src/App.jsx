@@ -1,16 +1,12 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import SearchBar from './components/SearchBar';
 
 function App() {
-  const [count, setCount] = useState(0)
-
-    return (
-    <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
+  return (
+    <div style={{ padding: '2rem', maxWidth: '600px', margin: 'auto' }}>
       <h1>GitHub User Search</h1>
-      <p>Start building your GitHub search tool here.</p>
+      <SearchBar />
     </div>
   );
 }
-export default App
+
+export default App;

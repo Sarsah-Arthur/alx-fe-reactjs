@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+const BASE_URL = 'https://api.github.com';
+
 export const fetchAdvancedUsers = async (username, location, minRepos) => {
   const queryParts = [];
 
@@ -8,7 +10,12 @@ export const fetchAdvancedUsers = async (username, location, minRepos) => {
   if (minRepos) queryParts.push(`repos:>=${minRepos}`);
 
   const query = queryParts.join(' ');
-  const response = await axios.get(`https://api.github.com/search/users?q=${encodeURIComponent(query)}`);
+  const response = await axios.get(`${BASE_URL}/search/users?q=${encodeURIComponent(query)}`);
   
   return response.data.items;
+};
+
+export const fetchUserData = async (username) => {
+  const response = await axios.get(`${BASE_URL}/users/${username}`);
+  return response.data;
 };

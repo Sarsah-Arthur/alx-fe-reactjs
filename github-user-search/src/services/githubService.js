@@ -10,6 +10,7 @@ export const fetchAdvancedUsers = async (username, location, minRepos) => {
   if (minRepos) queryParts.push(`repos:>=${minRepos}`);
 
   const query = queryParts.join(' ');
+  
   const response = await axios.get(`${BASE_URL}/search/users?q=${encodeURIComponent(query)}`);
   
   return response.data.items;

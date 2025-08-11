@@ -1,56 +1,44 @@
-
-import { useParams, Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import recipesData from '../data.json'; 
+import { useParams } from "react-router-dom";
+import recipes from '../data.json';
+import { useEffect, useState } from "react";
 
 function RecipeDetail() {
-  const { id } = useParams();
-  const [recipe, setRecipe] = useState(null);
+    const { id } = useParams();
+    const [
+        {title, summary, image, ingredients, instructions},
+        setRecipe
+    ] = useState({});
 
-  useEffect(() => {
-    const selectedRecipe = recipesData.find(r => r.id === parseInt(id));
-    setRecipe(selectedRecipe);
-  }, [id]);
+    useEffect(() => {
+        const recipe = recipes.find(recipe => recipe.id === Number(id));
+        setRecipe(recipe);
+    }, []);
 
-  if (!recipe) return <div className="text-center py-10">Recipe not found.</div>;
+    if (!title) return <div>Loading...</div>
 
-  return (
-    <div className="max-w-3xl mx-auto p-6">
-      <img
-        src={recipe.image}
-        alt={recipe.name}
-        className="w-full h-64 object-cover rounded-lg shadow-md mb-6"
-      />
-      <h1 className="text-3xl font-bold text-blue-700 mb-4">{recipe.name}</h1>
-
-      {/* Ingredients */}
-      <section className="mb-6">
-        <h2 className="text-xl font-semibold mb-2">Ingredients</h2>
-        <ul className="list-disc list-inside space-y-1 text-gray-700">
-          {recipe.ingredients.map((ingredient, idx) => (
-            <li key={idx}>{ingredient}</li>
-          ))}
-        </ul>
-      </section>
-
-      {/* Instructions */}
-      <section className="mb-6">
-        <h2 className="text-xl font-semibold mb-2">Instructions</h2>
-        <ol className="list-decimal list-inside space-y-2 text-gray-700">
-          {recipe.instructions.map((step, idx) => (
-            <li key={idx}>{step}</li>
-          ))}
-        </ol>
-      </section>
-
-      <Link
-        to="/"
-        className="inline-block mt-4 bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg transition"
-      >
-        Back to Recipes
-      </Link>
-    </div>
-  );
+    return (
+        <div className="shadow-lg rounded-lg p-3 w-full">
+            <img src={image} alt="Recipe image" className="rounded-lg w-full max-h-60 hover:scale-110"/>
+            <div>
+                <h1>
+                    {title}
+                </h1>
+                <p>{summary}</p>
+            </div>
+            <section className="m-2 p-2 border-2 rounded-lg">
+            <h2 className="text-lg font-semibold">Ingredients:</h2>
+            <ul>
+                  {ingredients.map((item, i) => <li key={i}>{item}</li>)}
+                </ul>
+            </section>
+            <section className="m-2 p-2 border-2 rounded-lg">
+                <h2 className="text-lg font-semibold">Instructions:</h2>
+                <ol>
+                  {instructions.map((item, i) => <li key={i}>{`${i+1}- ${item}`}</li>)}
+                </ol>
+            </section>
+        </div>
+    )
 }
 
 export default RecipeDetail;

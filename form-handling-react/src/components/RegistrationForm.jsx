@@ -1,23 +1,13 @@
 import { useState } from "react";
 
 export default function RegistrationForm() {
-  const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    password: ""
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value
-    }));
-  };
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form Submitted:", formData);
+    console.log("Form Submitted:", { username, email, password });
   };
 
   return (
@@ -26,9 +16,8 @@ export default function RegistrationForm() {
         <label>Username</label>
         <input
           type="text"
-          name="username"
-          value={formData.username}   
-          onChange={handleChange}
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
         />
       </div>
 
@@ -36,9 +25,8 @@ export default function RegistrationForm() {
         <label>Email</label>
         <input
           type="email"
-          name="email"
-          value={formData.email}     
-          onChange={handleChange}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
       </div>
 
@@ -46,9 +34,8 @@ export default function RegistrationForm() {
         <label>Password</label>
         <input
           type="password"
-          name="password"
-          value={formData.password}  
-          onChange={handleChange}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
       </div>
 

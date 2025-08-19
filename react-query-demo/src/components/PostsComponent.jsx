@@ -1,10 +1,9 @@
-// src/components/PostsComponent.jsx
 import { useQuery } from "@tanstack/react-query";
 
 const fetchPosts = async () => {
   const res = await fetch("https://jsonplaceholder.typicode.com/posts");
   if (!res.ok) {
-    throw new Error("Network response was not ok");
+    throw new Error("Failed to fetch posts");
   }
   return res.json();
 };
@@ -20,35 +19,35 @@ export default function PostsComponent() {
   } = useQuery({
     queryKey: ["posts"],
     queryFn: fetchPosts,
-    staleTime: 1000 * 60, // 1 minute cache
+    cacheTime: 1000 * 60 * 5,
+    refetchOnWindowFocus: true,
+    keepPreviousData: true,
   });
 
   if (isLoading) return <p>Loading posts...</p>;
-  if (isError) return <p style={{ color: "red" }}>Error: {error.message}</p>;
+  if (isError) return <p>Error: {error.message}</p>;
 
   return (
-    <div>
-      <button
-        onClick={() => refetch()}
-        disabled={isFetching}
-        style={{
-          padding: "8px 12px",
-          marginBottom: "10px",
-          background: "blue",
-          color: "white",
-          border: "none",
-          borderRadius: "5px",
-          cursor: "pointer",
-        }}
-      >
-        {isFetching ? "Refreshing..." : "Refetch Posts"}
-      </button>
+    <div className="space-y-4">
+      <div className="flex items-center gap-4">
+        <h2 className="text-xl font-bold">Posts</h2>
+        <button
+          onClick={() => refetch()}
+          disabled={isFetching}
+          className="px-4 py-2 bg-blue-500 text-white rounded-md"
+        >
+          {isFetching ? "Refreshing..." : "Refetch"}
+        </button>
+      </div>
 
-      <ul>
+      <ul className="space-y-2">
         {posts.slice(0, 10).map((post) => (
-          <li key={post.id}>
-            <strong>{post.title}</strong>
-            <p>{post.body}</p>
+          <li
+            key={post.id}
+            className="border p-3 rounded-md shadow-sm bg-gray-50"
+          >
+            <h3 className="font-semibold">{post.title}</h3>
+            <p className="text-sm text-gray-600">{post.body}</p>
           </li>
         ))}
       </ul>

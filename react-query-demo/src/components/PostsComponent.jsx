@@ -1,3 +1,4 @@
+// src/components/PostsComponent.jsx
 import { useQuery } from "@tanstack/react-query";
 
 const fetchPosts = async () => {
@@ -20,6 +21,7 @@ export default function PostsComponent() {
     queryKey: ["posts"],
     queryFn: fetchPosts,
     cacheTime: 1000 * 60 * 5,
+    staleTime: 1000 * 30, // 30 seconds stale time
     refetchOnWindowFocus: true,
     keepPreviousData: true,
   });

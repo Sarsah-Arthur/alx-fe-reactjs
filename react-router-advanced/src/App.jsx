@@ -23,7 +23,6 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
 
-        {/* Protected Profile Route */}
         <Route
           path="/profile/*"
           element={
@@ -36,10 +35,8 @@ export default function App() {
           <Route path="settings" element={<ProfileSettings />} />
         </Route>
 
-        {/* Dynamic Blog Route */}
         <Route path="/blog/:postId" element={<BlogPost />} />
 
-        {/* Redirect unknown routes */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </div>

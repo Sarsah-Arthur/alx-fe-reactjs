@@ -10,7 +10,7 @@ function App() {
       <FormikForm />
     </div>
     
-  );
+  )
 }
 
 export default App;

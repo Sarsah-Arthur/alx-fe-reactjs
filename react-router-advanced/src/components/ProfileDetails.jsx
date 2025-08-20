@@ -1,3 +1,7 @@
-export default function ProfileDetails() {
-  return <p>This is the profile details section.</p>;
-}
+import React from "react";
+
+const ProfileDetails = () => {
+  return <h3>User Details Section</h3>;
+};
+
+export default ProfileDetails;

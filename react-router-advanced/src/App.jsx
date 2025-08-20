@@ -2,8 +2,6 @@ import { BrowserRouter, Routes, Route, Navigate, Link } from "react-router-dom";
 import Home from "./components/Home";
 import About from "./components/About";
 import Profile from "./components/Profile";
-import ProfileDetails from "./components/ProfileDetails";
-import ProfileSettings from "./components/ProfileSettings";
 import BlogPost from "./components/BlogPost";
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -24,6 +22,7 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
 
+          {/* Profile is protected, nested routes handled inside Profile.jsx */}
           <Route
             path="/profile/*"
             element={
@@ -31,13 +30,11 @@ export default function App() {
                 <Profile />
               </ProtectedRoute>
             }
-          >
-            <Route path="details" element={<ProfileDetails />} />
-            <Route path="settings" element={<ProfileSettings />} />
-          </Route>
+          />
 
           <Route path="/blog/:postId" element={<BlogPost />} />
 
+          {/* Fallback route */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>

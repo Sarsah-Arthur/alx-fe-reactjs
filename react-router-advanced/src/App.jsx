@@ -32,7 +32,8 @@ export default function App() {
             }
           />
 
-          <Route path="/blog/:postId" element={<BlogPost />} />
+          {/* ✅ Dynamic blog route now uses :id */}
+          <Route path="/blog/:id" element={<BlogPost />} />
 
           {/* Fallback route */}
           <Route path="*" element={<Navigate to="/" replace />} />

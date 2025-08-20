@@ -4,7 +4,7 @@ import AddTodoForm from "./AddTodoForm";
 export default function TodoList() {
   const [todos, setTodos] = useState([
     { id: 1, text: "Learn React", completed: false },
-    { id: 2, text: "Write Tests", completed: false }, 
+    { id: 2, text: "Write Tests", completed: false },
   ]);
 
   const addTodo = (text) => {
@@ -31,6 +31,7 @@ export default function TodoList() {
         {todos.map((todo) => (
           <li
             key={todo.id}
+            data-testid="todo-item"
             onClick={() => toggleTodo(todo.id)}
             style={{
               textDecoration: todo.completed ? "line-through" : "none",
